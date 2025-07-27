@@ -1,0 +1,21 @@
+# Compiled Executables
+*.exe
+*.out
+*.app
+dp_app
+
+# Object Files
+*.o
+*.obj
+
+# Debugging Files
+*.bak
+*.swp
+*.swo
+
+# IDE specific files (example for VS Code)
+.vscode/
+
+# Build directories
+build/
+bin/
