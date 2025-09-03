@@ -3,6 +3,7 @@
 *.out
 *.app
 dp_app
+dptoolkit
 
 # Object Files
 *.o

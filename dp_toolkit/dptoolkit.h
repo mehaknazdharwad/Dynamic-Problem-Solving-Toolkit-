@@ -33,6 +33,19 @@ Knapsack *create_knapsack(int *weights, int *values, int n, int capacity);
 void destroy_knapsack(Knapsack *knapsack);
 int knapsack_solve(Knapsack *knapsack);
 
+// Coin Change structure and functions
+typedef struct CoinChange
+{
+    int *coins;
+    int n_coins;
+    int amount;
+    int *memo;
+} CoinChange;
+
+CoinChange *create_coin_change(int *coins, int n_coins, int amount);
+void destroy_coin_change(CoinChange *coin_change);
+int coin_change_solve(CoinChange *coin_change);
+
 // Solver functions
 DPProblem *create_dp_problem(void *instance, int (*solve)(void *instance));
 void destroy_dp_problem(DPProblem *problem);

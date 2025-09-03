@@ -143,3 +143,59 @@ int dp_solve(DPProblem *problem)
 {
     return problem->solve(problem->instance);
 }
+
+// Coin Change functions
+CoinChange *create_coin_change(int *coins, int n_coins, int amount)
+{
+    CoinChange *coin_change = (CoinChange *)malloc(sizeof(CoinChange));
+    coin_change->coins = coins;
+    coin_change->n_coins = n_coins;
+    coin_change->amount = amount;
+    coin_change->memo = (int *)malloc((amount + 1) * sizeof(int));
+    for (int i = 0; i <= amount; i++)
+    {
+        coin_change->memo[i] = -1;
+    }
+    return coin_change;
+}
+
+void destroy_coin_change(CoinChange *coin_change)
+{
+    if (coin_change)
+    {
+        free(coin_change->memo);
+        free(coin_change);
+    }
+}
+
+int coin_change_solve_helper(CoinChange *coin_change, int amount)
+{
+    if (amount == 0) return 0;
+    if (amount < 0) return -1;
+    
+    if (coin_change->memo[amount] != -1)
+    {
+        return coin_change->memo[amount];
+    }
+    
+    int min_coins = -1;
+    for (int i = 0; i < coin_change->n_coins; i++)
+    {
+        int sub_result = coin_change_solve_helper(coin_change, amount - coin_change->coins[i]);
+        if (sub_result != -1)
+        {
+            if (min_coins == -1 || sub_result + 1 < min_coins)
+            {
+                min_coins = sub_result + 1;
+            }
+        }
+    }
+    
+    coin_change->memo[amount] = min_coins;
+    return min_coins;
+}
+
+int coin_change_solve(CoinChange *coin_change)
+{
+    return coin_change_solve_helper(coin_change, coin_change->amount);
+}
